@@ -159,13 +159,16 @@ print(number_of_NAs)
 * Show the head() rows of the new resulting df - df_all - inital rows were NA at the beginning
 
 ```r
-## the steps here are NAs - so drop this column - we'll be merging to it later to replace with the interval means
+## the steps here are NAs - so drop this column - we'll be merging to it later to 
+## replace with the interval means
 df_NAs$steps <- NULL
 
-## this will change the "mean" column in te intervalMeans df to steps to be consistent with this question.
+## this will change the "mean" column in te intervalMeans df to steps to be 
+## consistent with this question.
 names(intervalMeans)[2] <- c("steps")
 
-## merge the NAs df with the intervalMeans by the interval colulmn.  This will "Fill in" the missing (NAs) data.
+## merge the NAs df with the intervalMeans by the interval colulmn.  This will "Fill in" the 
+## missing (NAs) data.
 df_NAs2 <- merge(df_NAs, intervalMeans, "interval")
 ## reorder the columns to match that of the df_orig
 df_NAs2_reorder <- df_NAs2[c(3,2,1)]
@@ -174,7 +177,8 @@ df_NAs2_reorder <- df_NAs2[c(3,2,1)]
 ### Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
-## append the two data frames together again, sort (arrange) it so the head() is in the same order as the originL
+## append the two data frames together again, sort (arrange) it so the head() is 
+## in the same order as the originL
 ## the sort made it easier to see the results of the filling in the NAs data.
 df_all <- rbind(df_No_NAs, df_NAs2_reorder)
 df_all <- arrange(df_all, date, interval)
@@ -192,10 +196,11 @@ head(df_all)
 ## 6 2.0943396 2012-10-01       25
 ```
 
-### Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? 
+### Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. 
 
 ```r
-# using df_all, group and summarize again, to get the Daily Totals, and the DAily Mean and Median of the daily totals
+# using df_all, group and summarize again, to get the Daily Totals, and the DAily Mean 
+## and Median of the daily totals
 byDates <- group_by(df_all, date)
 byInterval <- group_by(df_all, interval)
 
@@ -206,7 +211,7 @@ p <- ggplot(data = dailyTotals_all, aes(x=date, y=sum))+geom_bar(stat="identity"
 print(p)
 ```
 
-![plot of chunk plot 3 - histogram - after imputing missing values](figure/plot 3 - histogram - after imputing missing values-1.png) 
+![plot of chunk plot3 - histogram - after imputing missing values](figure/plot3 - histogram - after imputing missing values-1.png) 
 ### Do these values differ from the estimates from the first part of the assignment?
 ### What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
@@ -234,5 +239,31 @@ print(dailyMeanMedian)
 ## 1 10766.19  10765
 ```
 ### No, there is no impact of imputing the missing data.  Since the mean and median were close to each other, and the strategy to fill in missing values was to use the mean of the missing interval, the new df_all also has the same mean and a very similar median.
+
 =============================================================================
 ## Are there differences in activity patterns between weekdays and weekends?
+
+### Create a new factor variable in the dataset with two levels - "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+```r
+# After much experimenting with the weekdays function, I found this rather elegant formula for 
+# creating groups for Weekend vs WeekDay via a web search.
+# Then store the result as a new column in the data frame
+df_all$typeWeekDay <- ifelse (weekdays(df_all$date) %in%  c("Saturday", "Sunday"),'Weekend','Weekday')
+ 
+# Group and Summarize to get the daily means by interval and type of weekday
+byInterval <- group_by(df_all, interval, typeWeekDay)
+dailyMeans_all <- summarize(byInterval,mean=mean(steps))  
+```
+
+### Make a panel plot containing a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
+
+```r
+# create the weekday vs. weekend plot
+q <- ggplot( data = dailyMeans_all, aes( interval, mean )) + geom_line()  + facet_grid(typeWeekDay~.) +   
+     labs(title="Mean steps per interval, panels by Weekday vs. Weekend")  + facet_wrap(~typeWeekDay,nrow=2)
+print(q)
+```
+
+![plot of chunk plot4 - time series panels - by weekday vs weekend](figure/plot4 - time series panels - by weekday vs weekend-1.png) 
+
