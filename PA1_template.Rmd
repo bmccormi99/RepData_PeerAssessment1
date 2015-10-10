@@ -45,13 +45,10 @@ print(dailyTotals)
 
 ###Make a histogram of the total number of steps taken each day
 
-```{r plot1}
-png("figure/plot 1 - dailyTotals.png")
+```{r plot1 - histogram - dailyTotals}
+##png("figure/plot 1 - dailyTotals.png")
 p <- ggplot(data = dailyTotals, aes(x=date, y=sum)) + geom_bar(stat="identity")
 print(p)
-dev.off()
-print(p)
-
 ```
 
 ###Calculate and report the mean and median of the total number of steps taken per day
@@ -67,19 +64,15 @@ print(dailyMeanMedian)
 
 ###Make a time series plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r plot2}
+```{r plot2 - time series - intervalMeans}
 byInterval <- group_by(df_No_NAs, interval)
 ## summarize by the interval to get the means for each interval
 intervalMeans <- summarize(byInterval, mean=mean(steps)) 
 ##print(intervalMeans)
 
 ## create the plot of interval means, one to a file, one to the document
-png("figure/plot 2 - intervalMeans.png")
+##png("figure/plot 2 - intervalMeans.png")
 q <- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
-print(q)
-dev.off()
-
-##q <- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
 print(q)
 
 ```

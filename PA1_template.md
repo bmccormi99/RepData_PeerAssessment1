@@ -76,20 +76,12 @@ print(dailyTotals)
 
 
 ```r
-png("figure/plot 1 - dailyTotals.png")
+##png("figure/plot 1 - dailyTotals.png")
 p <- ggplot(data = dailyTotals, aes(x=date, y=sum)) + geom_bar(stat="identity")
 print(p)
-dev.off()
 ```
 
-```
-## png 
-##   2
-```
-
-```r
-print(p)
-```
+![plot of chunk plot1 - histogram - dailyTotals](figure/plot1 - histogram - dailyTotals-1.png) 
 
 ###Calculate and report the mean and median of the total number of steps taken per day
 
@@ -119,21 +111,12 @@ intervalMeans <- summarize(byInterval, mean=mean(steps))
 ##print(intervalMeans)
 
 ## create the plot of interval means, one to a file, one to the document
-png("figure/plot 2 - intervalMeans.png")
+##png("figure/plot 2 - intervalMeans.png")
 q <- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
 print(q)
-dev.off()
 ```
 
-```
-## png 
-##   2
-```
-
-```r
-##q <- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
-print(q)
-```
+![plot of chunk plot2 - time series - intervalMeans](figure/plot2 - time series - intervalMeans-1.png) 
 
 ###Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
