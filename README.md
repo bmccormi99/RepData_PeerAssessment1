@@ -1,8 +1,8 @@
 # Reproducible Research - Peer Assessment 1
 
-## Github submission for this assignment.  Below is the introductions to the assignment and an overview of the dataset.
+## Github submission for this assignment.  Below is the introduction to the assignment and an overview of the dataset.
 
-#### PA1_template.md - The main submission output for this assignment.  This file can be viewed directly within the github website.
+#### PA1_template.md - The main submission output for this assignment.  This file can be viewed directly within the github website.  This is where peer evaluators should go next.
 #### Plots - The plots are shown within the document, but they can also be found in the /figure/ folder on Github
 #### PA1_template.html - output of the knit2html() process but is not viewed directly in Github, be sure you are viewing the correct fle.
 #### PA1_template.Rmd - source file which is passed to knit2html() to produce the above files.
