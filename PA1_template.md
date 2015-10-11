@@ -5,7 +5,7 @@ output:
     keep_md: true
 ---
 
-
+# Reproducible Research: Peer Assessment 1
 ## Loading and preprocessing the data
 
 ```r
@@ -53,9 +53,7 @@ df_NAs = df_orig[df_sub,]
 byDates <- group_by(df_No_NAs, date)
 
 ## summarize to get the daily totals, 
-
 dailyTotals <- summarize(byDates, sum=sum(steps))  
-
 print(dailyTotals)
 ```
 
@@ -80,7 +78,6 @@ print(dailyTotals)
 
 
 ```r
-##png("figure/plot 1 - dailyTotals.png")
 p <- ggplot(data = dailyTotals, aes(x=date, y=sum)) + geom_bar(stat="identity")
 print(p)
 ```
@@ -115,7 +112,6 @@ intervalMeans <- summarize(byInterval, mean=mean(steps))
 ##print(intervalMeans)
 
 ## create the plot of interval means, one to a file, one to the document
-##png("figure/plot 2 - intervalMeans.png")
 q <- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
 print(q)
 ```

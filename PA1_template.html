@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Loading and preprocessing the data</title>
+<title>Reproducible Research: Peer Assessment 1</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -201,6 +201,8 @@ hr {
 </head>
 
 <body>
+<h1>Reproducible Research: Peer Assessment 1</h1>
+
 <h2>Loading and preprocessing the data</h2>
 
 <pre><code class="r">## load the dplyr libary - I prefer this for grouping and summarizing
@@ -243,9 +245,7 @@ df_NAs = df_orig[df_sub,]
 byDates &lt;- group_by(df_No_NAs, date)
 
 ## summarize to get the daily totals, 
-
 dailyTotals &lt;- summarize(byDates, sum=sum(steps))  
-
 print(dailyTotals)
 </code></pre>
 
@@ -267,8 +267,7 @@ print(dailyTotals)
 
 <h3>Make a histogram of the total number of steps taken each day</h3>
 
-<pre><code class="r">##png(&quot;figure/plot 1 - dailyTotals.png&quot;)
-p &lt;- ggplot(data = dailyTotals, aes(x=date, y=sum)) + geom_bar(stat=&quot;identity&quot;)
+<pre><code class="r">p &lt;- ggplot(data = dailyTotals, aes(x=date, y=sum)) + geom_bar(stat=&quot;identity&quot;)
 print(p)
 </code></pre>
 
@@ -297,7 +296,6 @@ intervalMeans &lt;- summarize(byInterval, mean=mean(steps))
 ##print(intervalMeans)
 
 ## create the plot of interval means, one to a file, one to the document
-##png(&quot;figure/plot 2 - intervalMeans.png&quot;)
 q &lt;- ggplot( data = intervalMeans, aes( interval, mean )) + geom_line() 
 print(q)
 </code></pre>
